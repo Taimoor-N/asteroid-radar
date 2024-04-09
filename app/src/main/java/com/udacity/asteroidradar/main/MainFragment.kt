@@ -6,26 +6,29 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.udacity.asteroidradar.R
 import com.udacity.asteroidradar.databinding.FragmentMainBinding
 
 class MainFragment : Fragment() {
 
-    private val viewModel: MainViewModel by lazy {
+    private lateinit var _binding: FragmentMainBinding
+
+    private val _viewModel: MainViewModel by lazy {
         ViewModelProvider(this)[MainViewModel::class.java]
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-        val binding = FragmentMainBinding.inflate(inflater)
-        binding.lifecycleOwner = this
+        _binding = FragmentMainBinding.inflate(inflater)
+        _binding.lifecycleOwner = this
+        _binding.viewModel = _viewModel
 
-        binding.viewModel = viewModel
-
+        initializeRecyclerView()
         addMenuItems()
 
-        return binding.root
+        return _binding.root
     }
 
     private fun addMenuItems() {
@@ -53,6 +56,17 @@ class MainFragment : Fragment() {
                 }
             }
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+    }
+
+    private fun initializeRecyclerView() {
+        val adapter = AsteroidAdapter()
+        _binding.rvFragmentMain.adapter = adapter
+
+        _viewModel.asteroids.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                adapter.submitList(it)
+            }
+        })
     }
 
 }
