@@ -11,6 +11,11 @@ class MainViewModel : ViewModel() {
     val asteroids: LiveData<ArrayList<Asteroid>>
         get() = _asteroids
 
+    private val _navigateToAsteroidDetails = MutableLiveData<Asteroid?>()
+
+    val navigateToAsteroidDetails: LiveData<Asteroid?>
+        get() = _navigateToAsteroidDetails
+
     init {
         createTestAsteroids()
     }
@@ -21,6 +26,14 @@ class MainViewModel : ViewModel() {
         }
         _asteroids.value?.add(asteroid)
         _asteroids.notifyObserver()
+    }
+
+    fun onAsteroidClicked(asteroid: Asteroid) {
+        _navigateToAsteroidDetails.value = asteroid
+    }
+
+    fun doneNavigating() {
+        _navigateToAsteroidDetails.value = null
     }
 
     private fun createTestAsteroids() {

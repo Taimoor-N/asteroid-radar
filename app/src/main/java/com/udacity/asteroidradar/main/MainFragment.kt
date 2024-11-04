@@ -6,8 +6,8 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.udacity.asteroidradar.R
 import com.udacity.asteroidradar.databinding.FragmentMainBinding
 
@@ -26,6 +26,7 @@ class MainFragment : Fragment() {
         _binding.viewModel = _viewModel
 
         initializeRecyclerView()
+        addObservers()
         addMenuItems()
 
         return _binding.root
@@ -59,14 +60,25 @@ class MainFragment : Fragment() {
     }
 
     private fun initializeRecyclerView() {
-        val adapter = AsteroidAdapter()
+        val adapter = AsteroidAdapter(AsteroidClickListener {
+                asteroid -> _viewModel.onAsteroidClicked(asteroid)
+        })
         _binding.rvFragmentMain.adapter = adapter
 
-        _viewModel.asteroids.observe(viewLifecycleOwner, Observer {
+        _viewModel.asteroids.observe(viewLifecycleOwner) {
             it?.let {
                 adapter.submitList(it)
             }
-        })
+        }
+    }
+
+    private fun addObservers() {
+        _viewModel.navigateToAsteroidDetails.observe(viewLifecycleOwner) {
+            it?.let {
+                this.findNavController().navigate(MainFragmentDirections.actionShowDetail(it))
+                _viewModel.doneNavigating()
+            }
+        }
     }
 
 }
