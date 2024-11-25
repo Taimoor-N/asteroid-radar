@@ -46,13 +46,13 @@ class MainFragment : Fragment() {
             override fun onMenuItemSelected(item: MenuItem): Boolean {
                 // Handle the menu selection
                 return when (item.itemId) {
-                    R.id.show_all_menu -> {
+                    R.id.show_next_week_asteroids -> {
                         return true
                     }
-                    R.id.show_rent_menu -> {
+                    R.id.show_today_asteroids -> {
                         return true
                     }
-                    R.id.show_buy_menu -> {
+                    R.id.show_saved_asteroids -> {
                         return true
                     }
                     else -> false
