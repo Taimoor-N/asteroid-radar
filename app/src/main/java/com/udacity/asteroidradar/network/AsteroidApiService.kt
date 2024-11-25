@@ -2,13 +2,12 @@ package com.udacity.asteroidradar.network
 
 import com.udacity.asteroidradar.BuildConfig
 import com.udacity.asteroidradar.Constants
-import org.json.JSONObject
 import retrofit2.Retrofit
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-private const val NASA_API_KEY = BuildConfig.API_KEY_NASA;
+private const val NASA_API_KEY = BuildConfig.API_KEY_NASA
 
 private val retrofit = Retrofit.Builder()
     .baseUrl(Constants.BASE_URL)

@@ -16,7 +16,10 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
+
 class AsteroidRepository(private val database: AsteroidDatabase) {
+
+    private val sdf = SimpleDateFormat(Constants.API_QUERY_DATE_FORMAT, Locale.getDefault())
 
     val asteroids: LiveData<List<Asteroid>> = database.asteroidDataDao.getAllAsteroids()
         .map { it.asDomainModel() }
@@ -27,14 +30,13 @@ class AsteroidRepository(private val database: AsteroidDatabase) {
         }
     }
 
-    suspend fun removeAllAsteroids() {
+    suspend fun removePastAsteroids() {
         withContext(Dispatchers.IO) {
-            database.asteroidDataDao.clear()
+            database.asteroidDataDao.clearAsteroidsBeforeDate(sdf.format(Date()))
         }
     }
 
-    suspend fun getAsteroidsFromAPI() {
-        val sdf = SimpleDateFormat(Constants.API_QUERY_DATE_FORMAT, Locale.getDefault())
+    suspend fun refreshAsteroids() {
         withContext(Dispatchers.IO) {
             try {
                 val asteroidJsonResponse = AsteroidApi.retrofitService.getAsteroids(startDate = sdf.format(Date()))

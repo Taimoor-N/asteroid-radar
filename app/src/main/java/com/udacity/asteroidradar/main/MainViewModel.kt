@@ -24,7 +24,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     init {
         viewModelScope.launch {
-            asteroidRepository.getAsteroidsFromAPI()
+            asteroidRepository.refreshAsteroids()
         }
     }
 

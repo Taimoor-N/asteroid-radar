@@ -27,4 +27,8 @@ interface AsteroidDatabaseDao {
     @Query("DELETE FROM asteroid_table")
     suspend fun clear()
 
+    // Delete all values from the table before the given close approach date
+    @Query("DELETE FROM asteroid_table WHERE close_approach_date < :date")
+    suspend fun clearAsteroidsBeforeDate(date: String)
+
 }
