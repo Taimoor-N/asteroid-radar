@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.udacity.asteroidradar.AsteroidFilter
 import com.udacity.asteroidradar.R
 import com.udacity.asteroidradar.adapters.AsteroidAdapter
 import com.udacity.asteroidradar.adapters.AsteroidClickListener
@@ -47,12 +48,15 @@ class MainFragment : Fragment() {
                 // Handle the menu selection
                 return when (item.itemId) {
                     R.id.show_next_week_asteroids -> {
+                        _viewModel.updateFilter(AsteroidFilter.SHOW_WEEK)
                         return true
                     }
                     R.id.show_today_asteroids -> {
+                        _viewModel.updateFilter(AsteroidFilter.SHOW_TODAY)
                         return true
                     }
                     R.id.show_saved_asteroids -> {
+                        _viewModel.updateFilter(AsteroidFilter.SHOW_ALL)
                         return true
                     }
                     else -> false

@@ -18,6 +18,13 @@ data class Asteroid
     ) : Parcelable
 
 
+enum class AsteroidFilter(val value: String) {
+    SHOW_TODAY("today"),
+    SHOW_WEEK("week"),
+    SHOW_ALL("all")
+}
+
+
 fun Asteroid.asDatabaseModel(): AsteroidEntity {
     return AsteroidEntity(
         asteroidId = this.id,
