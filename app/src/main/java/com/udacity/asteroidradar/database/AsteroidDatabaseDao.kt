@@ -23,6 +23,12 @@ interface AsteroidDatabaseDao {
     @Query("SELECT * FROM asteroid_table ORDER BY close_approach_date")
     fun getAllAsteroids(): LiveData<List<AsteroidEntity>>
 
+    // Return asteroids having close approach date between given dates
+    @Query("SELECT * FROM asteroid_table " +
+            "WHERE close_approach_date >= :startDate AND close_approach_date < :endDate " +
+            "ORDER BY close_approach_date")
+    fun getAsteroidsForDatesBetween(startDate: String, endDate: String): LiveData<List<AsteroidEntity>>
+
     // Delete all values from the table
     @Query("DELETE FROM asteroid_table")
     suspend fun clear()

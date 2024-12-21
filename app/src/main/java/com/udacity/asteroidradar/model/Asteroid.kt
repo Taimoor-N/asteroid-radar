@@ -1,4 +1,4 @@
-package com.udacity.asteroidradar
+package com.udacity.asteroidradar.model
 
 import android.os.Parcelable
 import com.udacity.asteroidradar.database.AsteroidEntity
@@ -16,6 +16,13 @@ data class Asteroid
         val distanceFromEarth: Double,
         val isPotentiallyHazardous: Boolean
     ) : Parcelable
+
+
+enum class AsteroidFilter(val value: String) {
+    SHOW_TODAY("today"),
+    SHOW_WEEK("week"),
+    SHOW_ALL("all")
+}
 
 
 fun Asteroid.asDatabaseModel(): AsteroidEntity {
