@@ -1,9 +1,9 @@
-# Purpose of this Folder
+# Asteroid Radar
 
-This folder should contain the scaffolded project files to get a student started on their project. This repo will be added to the Classroom for students to use, so please do not have any solutions in this folder.
+This app displays asteroids detected by NASA that pass near Earth. It allows the user to view all the detected asteroids in a given period of time with data such as the size, velocity, distance to earth and if they are potentially hazardous. It uses NASA's Near Earth Object Web Service (NeoWs) API to fetch the asteroid data and also displays NASA Image of the Day.
 
-## Note: Android Kotlin Gradle Update
-Use the updated Gradle version in the `~/gradle/wrapper/gradle-wrapper.properties` file:
-```
-distributionUrl = https\://services.gradle.org/distributions/gradle-6.1.1-all.zip
-```
+## Installation
+Clone the repository using the command below and import the project in Android Studio, or another IDE of your choice.\
+`git clone https://github.com/Taimoor-N/asteroid-radar.git`
+
+Once cloned, navigate to gradle.properties file in the main app folder and replace "Add_API_Key_Here" with your API key for NASA NeoWs.
