@@ -3,7 +3,7 @@ package com.udacity.asteroidradar.database
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.udacity.asteroidradar.Asteroid
+import com.udacity.asteroidradar.model.Asteroid
 
 @Entity(tableName = "asteroid_table")
 data class AsteroidEntity (

@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.udacity.asteroidradar.AsteroidFilter
+import com.udacity.asteroidradar.model.AsteroidFilter
 import com.udacity.asteroidradar.R
 import com.udacity.asteroidradar.adapters.AsteroidAdapter
 import com.udacity.asteroidradar.adapters.AsteroidClickListener
@@ -83,6 +83,11 @@ class MainFragment : Fragment() {
             it?.let {
                 this.findNavController().navigate(MainFragmentDirections.actionShowDetail(it))
                 _viewModel.doneNavigating()
+            }
+        }
+        _viewModel.pictureOfDay.observe(viewLifecycleOwner) {
+            it?.let {
+                _binding.ivFragmentMainImageOfTheDay.contentDescription = it.title
             }
         }
     }

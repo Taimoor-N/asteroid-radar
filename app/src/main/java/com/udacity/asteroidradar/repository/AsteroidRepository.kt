@@ -2,13 +2,15 @@ package com.udacity.asteroidradar.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
-import com.udacity.asteroidradar.Asteroid
-import com.udacity.asteroidradar.AsteroidFilter
+import com.udacity.asteroidradar.model.Asteroid
+import com.udacity.asteroidradar.model.AsteroidFilter
 import com.udacity.asteroidradar.Constants
-import com.udacity.asteroidradar.asDatabaseModel
+import com.udacity.asteroidradar.model.asDatabaseModel
 import com.udacity.asteroidradar.database.AsteroidDatabase
 import com.udacity.asteroidradar.database.asDomainModel
+import com.udacity.asteroidradar.model.PictureOfDay
 import com.udacity.asteroidradar.network.AsteroidApi
+import com.udacity.asteroidradar.network.PictureOfDayApi
 import com.udacity.asteroidradar.network.parseAsteroidsJsonResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -67,9 +69,20 @@ class AsteroidRepository(private val database: AsteroidDatabase) {
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
-                throw e
             }
         }
+    }
+
+    suspend fun getPictureOfDay() : PictureOfDay? {
+        var pictureOfDay : PictureOfDay? = null
+        withContext(Dispatchers.IO) {
+            try {
+                pictureOfDay = PictureOfDayApi.retrofitService.getPictureOfDay()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+        return pictureOfDay
     }
 
 }
