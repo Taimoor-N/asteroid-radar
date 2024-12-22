@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.udacity.asteroidradar.R
 import com.udacity.asteroidradar.model.Asteroid
 import com.udacity.asteroidradar.databinding.ListItemAsteroidBinding
 
@@ -27,6 +28,7 @@ class AsteroidAdapter(val clickListener: AsteroidClickListener) : ListAdapter<As
         fun bind(clickListener: AsteroidClickListener, item: Asteroid) {
             binding.asteroid = item
             binding.clickListener = clickListener
+            setDynamicLayoutContent(item)
             binding.executePendingBindings()
         }
 
@@ -35,6 +37,14 @@ class AsteroidAdapter(val clickListener: AsteroidClickListener) : ListAdapter<As
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = ListItemAsteroidBinding.inflate(layoutInflater, parent, false)
                 return ViewHolder(binding)
+            }
+        }
+
+        private fun setDynamicLayoutContent(asteroid: Asteroid) {
+            if (asteroid.isPotentiallyHazardous) {
+                binding.ivListItemAsteroidHazardous.contentDescription = this.itemView.context.getString(R.string.ContentDescription_Hazardous_Emoji)
+            } else {
+                binding.ivListItemAsteroidHazardous.contentDescription = this.itemView.context.getString(R.string.ContentDescription_Safe_Emoji)
             }
         }
     }
