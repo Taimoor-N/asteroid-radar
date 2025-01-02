@@ -29,7 +29,6 @@ class MainFragment : Fragment() {
         _binding.viewModel = _viewModel
 
         initializeRecyclerView()
-        setLayoutContent()
         addObservers()
         addMenuItems()
 
@@ -91,10 +90,6 @@ class MainFragment : Fragment() {
                 _binding.ivFragmentMainImageOfTheDay.contentDescription = getString(R.string.ContentDescription_NasaPictureOfTheDay, it.title)
             }
         }
-    }
-
-    private fun setLayoutContent() {
-        _binding.ivFragmentMainImageOfTheDay.contentDescription = getString(R.string.ContentDescription_NasaPictureOfTheDay_Placeholder)
     }
 
 }
